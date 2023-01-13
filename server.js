@@ -4,7 +4,7 @@ const app = express()
 require(`dotenv`).config()
 const {ROLLBAR_TOKEN} = process.env
 
-// app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`${__dirname}/public`))
 
 
 var Rollbar = require('rollbar')
@@ -16,9 +16,10 @@ var rollbar = new Rollbar({
 
 rollbar.log(`Hello World!`)
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-    rollbar.log(`File requested`)
+
+app.get('/api/cat', (req, res) => {
+    rollbar.info(`Cat name requested`)
+    res.send('barb')
 })
 
 
